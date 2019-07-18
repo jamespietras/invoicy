@@ -5,6 +5,7 @@ export class Invoice {
   company: Company;
   name: string;
   netValue: number;
+  paid: boolean;
   tax: number;
 
   constructor(invoiceData: {
@@ -12,6 +13,7 @@ export class Invoice {
     company: Company;
     name: string;
     netValue: number;
+    paid: boolean;
     tax: number;
   }) {
     Object.assign(this, invoiceData);

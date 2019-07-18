@@ -1,19 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
-import { CompanyNormalizer, ICompany } from './normalizers/company-normalizer';
+import { Company } from 'src/app/models/Company';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+  private httpClient: HttpClient;
 
-  constructor() { }
+  constructor(httpClient: HttpClient) {
+    this.httpClient = httpClient;
+  }
 
-  fetchCompanies(): ICompany[] {
-    const companies = [
-      {id: '1', name: 'Oracle'},
-    ];
-
-    return CompanyNormalizer.normalizeArray(companies);
+  fetchCompanies(): Observable<Company[]> {
+    return this.httpClient.get<Company[]>('http://www.mocky.io/v2/5d30877d320000ad57204590');
   }
 }

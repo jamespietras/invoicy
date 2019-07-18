@@ -1,0 +1,40 @@
+<td>
+    {{index + 1}}
+  </td>
+  
+  <td>
+    <input
+      *ngIf="editionModeEnabled ; else nameBlock"
+      [(ngModel)]="client.name"
+      [value]="client.name"
+      type="text"
+      class="form-control"
+    />
+  
+    <ng-template #nameBlock>{{client.name}}</ng-template>
+  </td>
+  
+  <td>
+    {{invoicesInDatabase}}
+  </td>
+  
+  <td>
+    <strong>{{totalUnpaid | currency}}</strong>
+  </td>
+  
+  <td>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button *ngIf="editionModeEnabled" (click)="saveChanges()" type="button" class="btn btn-secondary">
+        <i class="fa fa-save"></i>
+      </button>
+  
+      <button *ngIf="!editionModeEnabled" (click)="toggleEditionMode()" type="button" class="btn btn-secondary">
+        <i class="fa fa-edit"></i>
+      </button>
+      
+      <button (click)="deleteClient()" type="button" class="btn btn-secondary">
+        <i class="fa fa-trash"></i>
+      </button>
+    </div>
+  </td>
+  

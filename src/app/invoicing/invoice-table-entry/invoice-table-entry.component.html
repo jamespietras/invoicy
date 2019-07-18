@@ -15,7 +15,18 @@
 </td>
 
 <td>
-  {{invoice.company && invoice.company.name}}
+  <select
+    *ngIf="editionModeEnabled ; else companyBlock"
+    [(ngModel)]="invoiceCompanyId"
+    class="form-control"
+    required
+  >
+    <option *ngFor="let company of companies" [ngValue]="company.id">
+      {{company.name}}
+    </option>
+  </select>
+
+  <ng-template #companyBlock>{{invoice.company && invoice.company.name}}</ng-template>
 </td>
 
 <td>
@@ -27,39 +38,68 @@
     class="form-control"
   />
 
-  <ng-template #netValueBlock>{{invoice.netValue}}</ng-template>
+  <ng-template #netValueBlock>{{invoice.netValue | currency}}</ng-template>
 </td>
 
 <td>
-  <input
+  <select
     *ngIf="editionModeEnabled ; else taxBlock"
     [(ngModel)]="invoice.tax"
     [value]="invoice.tax"
-    type="numeric"
     class="form-control"
-  />
+    required
+  >
+    <option value="0">
+      0%
+    </option>
+
+    <option value="0.05">
+      5%
+    </option>
+
+    <option value="0.08">
+      8%
+    </option>
+
+    <option value="0.23">
+      23%
+    </option>
+  </select>
 
   <ng-template #taxBlock>{{invoice.tax * 100}}%</ng-template>
 </td>
 
 <td>
-  {{invoiceGrossValue}}$
+  {{taxValue | currency}}
 </td>
 
 <td>
-  <button *ngIf="editionModeEnabled" (click)="saveChanges()">
-    <i class="fa fa-save"></i>
-  </button>
+  <strong>{{grossValue | currency}}</strong>
+</td>
 
-  <button *ngIf="!editionModeEnabled" (click)="toggleEditionMode()">
-    <i class="fa fa-edit"></i>
-  </button>
+<td>
+  <input
+    (change)="handlePaidChange()"
+    [(ngModel)]="invoice.paid"
+    [value]="invoice.paid"
+    [disabled]="isStub"
+    type="checkbox"
+    class="form-control"
+  />
+</td>
 
-  <button *ngIf="editionModeEnabled && !isStub" (click)="toggleEditionMode()">
-    <i class="fa fa-times"></i>
-  </button>
-  
-  <button (click)="deleteInvoice()">
-    <i class="fa fa-trash"></i>
-  </button>
+<td>
+  <div class="btn-group" role="group" aria-label="Basic example">
+    <button *ngIf="editionModeEnabled" (click)="saveChanges()" type="button" class="btn btn-secondary">
+      <i class="fa fa-save"></i>
+    </button>
+
+    <button *ngIf="!editionModeEnabled" (click)="toggleEditionMode()" type="button" class="btn btn-secondary">
+      <i class="fa fa-edit"></i>
+    </button>
+    
+    <button (click)="deleteInvoice()" type="button" class="btn btn-secondary">
+      <i class="fa fa-trash"></i>
+    </button>
+  </div>
 </td>

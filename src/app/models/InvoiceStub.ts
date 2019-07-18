@@ -7,9 +7,11 @@ export class InvoiceStub {
   company: Company;
   name: string;
   netValue: number;
+  paid: boolean;
   tax: number;
 
   constructor() {
-    this.id = new uuid.v4();
+    this.id = uuid.v4();
+    this.paid = false;
   }
 }

@@ -1,0 +1,39 @@
+<div *ngIf="statistics.totalToBePaid > 0 ; else allInvoicesPaidBlock" class="alert alert-danger" role="alert">
+  <h4>
+    Total to be paid:
+
+    <hr />
+
+    <strong>{{statistics.totalToBePaid | currency}}</strong>
+  </h4>
+</div>
+
+<ng-template #allInvoicesPaidBlock>
+  <div class="alert alert-success" role="alert">
+    <h4>
+      Great!
+
+      <hr />
+
+      All invoices paid
+    </h4>
+  </div>
+</ng-template>
+
+<div class="alert alert-primary" role="alert">
+  <h5>
+    Total net value: <strong>{{statistics.totalNetValue | currency}}</strong>
+  </h5>
+
+  <br />
+
+  <h5>
+    Total tax: <strong>{{statistics.totalTax | currency}}</strong>
+  </h5>
+
+  <br />
+
+  <h5>
+    Total gross value: <strong>{{statistics.totalGrossValue | currency}}</strong>
+  </h5>
+</div>

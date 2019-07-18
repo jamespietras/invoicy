@@ -1,40 +1,49 @@
-<div class="form-group">
-  <label for="client-picker">Client to show invoices for:</label>
+<div class="container">
+  <div class="form-group">
+    <label for="client-picker">Client to show invoices for:</label>
 
-  <select [(ngModel)]="activeClient" (change)="changeClient()" class="form-control" id="client-picker" required>
-    <option *ngFor="let client of clients" [ngValue]="client">
-      {{client.name}}
-    </option>
-  </select>
-</div>
+    <select [(ngModel)]="activeClient" class="form-control" id="client-picker" required>
+      <option *ngFor="let client of clients" [ngValue]="client">
+        {{client.name}}
+      </option>
+    </select>
+  </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Company</th>
-      <th>Net</th>
-      <th>Tax</th>
-      <th>Gross</th>
-      <th></th>
-    </tr>
-  </thead>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Net</th>
+        <th>Tax</th>
+        <th>Tax value</th>
+        <th>Gross</th>
+        <th>Paid</th>
+        <th></th>
+      </tr>
+    </thead>
 
-  <tbody>
-    <tr
-      app-invoice-table-entry
-      *ngFor="let invoice of activeClient.invoices ; let index = index"
-      [index]=index
-      [invoice]=invoice
-      (onDelete)="deleteInvoice($event)"
-      (onSave)="saveInvoice($event)"
-    ></tr>
-  </tbody>
-</table>
+    <tbody *ngIf="activeClient">
+      <tr
+        app-invoice-table-entry
+        *ngFor="let invoice of activeClient.invoices ; let index = index"
+        [companies]="companies"
+        [index]="index"
+        [invoice]="invoice"
+        (onDelete)="deleteInvoice($event)"
+        (onSave)="saveInvoice($event)"
+      ></tr>
+    </tbody>
+  </table>
 
-<div class="invoice-positions__actions">
-  <button (click)="addEmptyInvoice()" class="btn btn-primary" type="button">
-    Add new invoice
-  </button>
+  <div class="invoice-positions__actions">
+    <button (click)="addEmptyInvoice()" class="btn btn-primary" type="button">
+      Add new invoice
+    </button>
+  </div>
+
+  <br />
+
+  <app-client-summary [invoices]="activeClient.invoices"></app-client-summary>
 </div>

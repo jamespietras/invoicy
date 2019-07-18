@@ -1,1 +1,31 @@
-<p>clients works!</p>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Invoices in database</th>
+        <th>Total unpaid</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr
+        app-client-table-entry
+        *ngFor="let client of clients ; let index = index"
+        [index]="index"
+        [client]="client"
+        (onDelete)="deleteClient($event)"
+        (onSave)="saveClient($event)"
+      ></tr>
+    </tbody>
+  </table>
+
+  <div class="invoice-positions__actions">
+    <button (click)="addEmptyClient()" class="btn btn-primary" type="button">
+      Add new client
+    </button>
+  </div>
+</div>
+  
