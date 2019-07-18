@@ -1,0 +1,65 @@
+<td>
+  {{index + 1}}
+</td>
+
+<td>
+  <input
+    *ngIf="editionModeEnabled ; else nameBlock"
+    [(ngModel)]="invoice.name"
+    [value]="invoice.name"
+    type="text"
+    class="form-control"
+  />
+
+  <ng-template #nameBlock>{{invoice.name}}</ng-template>
+</td>
+
+<td>
+  {{invoice.company && invoice.company.name}}
+</td>
+
+<td>
+  <input
+    *ngIf="editionModeEnabled ; else netValueBlock"
+    [(ngModel)]="invoice.netValue"
+    [value]="invoice.netValue"
+    type="numeric"
+    class="form-control"
+  />
+
+  <ng-template #netValueBlock>{{invoice.netValue}}</ng-template>
+</td>
+
+<td>
+  <input
+    *ngIf="editionModeEnabled ; else taxBlock"
+    [(ngModel)]="invoice.tax"
+    [value]="invoice.tax"
+    type="numeric"
+    class="form-control"
+  />
+
+  <ng-template #taxBlock>{{invoice.tax * 100}}%</ng-template>
+</td>
+
+<td>
+  {{invoiceGrossValue}}$
+</td>
+
+<td>
+  <button *ngIf="editionModeEnabled" (click)="saveChanges()">
+    <i class="fa fa-save"></i>
+  </button>
+
+  <button *ngIf="!editionModeEnabled" (click)="toggleEditionMode()">
+    <i class="fa fa-edit"></i>
+  </button>
+
+  <button *ngIf="editionModeEnabled && !isStub" (click)="toggleEditionMode()">
+    <i class="fa fa-times"></i>
+  </button>
+  
+  <button (click)="deleteInvoice()">
+    <i class="fa fa-trash"></i>
+  </button>
+</td>

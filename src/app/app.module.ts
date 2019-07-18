@@ -3,14 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './layout/navbar/navbar.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import { ClientsComponent } from './clients/clients.component';
+import { InvoicingModule } from './invoicing/invoicing.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    HomepageComponent,
+    ClientsComponent,
   ],
   imports: [
+    AppRoutingModule,
     BrowserModule,
-    AppRoutingModule
+    InvoicingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
