@@ -16,6 +16,7 @@ describe('ClientSummaryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ClientSummaryComponent);
     component = fixture.componentInstance;
+    component.invoices = [];
     fixture.detectChanges();
   });
 

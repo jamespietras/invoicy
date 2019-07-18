@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { ClientsComponent } from './clients.component';
+import { ClientTableEntryComponent } from './client-table-entry/client-table-entry.component';
 
 describe('ClientsComponent', () => {
   let component: ClientsComponent;
@@ -8,7 +10,8 @@ describe('ClientsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClientsComponent ]
+      declarations: [ ClientTableEntryComponent, ClientsComponent ],
+      imports: [FormsModule]
     })
     .compileComponents();
   }));
